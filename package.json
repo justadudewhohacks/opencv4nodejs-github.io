@@ -1,0 +1,24 @@
+{
+  "name": "opencv4nodejs-github.io",
+  "version": "0.0.0",
+  "description": "opencv4nodejs static website built with Gatsby",
+  "author": "justadudewhohacks",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "gatsby develop",
+    "build": "gatsby build"
+  },
+  "dependencies": {
+    "@types/node": "^9.6.1",
+    "@types/react": "^16.1.0",
+    "@types/react-dom": "^16.0.4",
+    "gatsby": "^1.9.243",
+    "gatsby-link": "^1.6.40",
+    "gatsby-plugin-typescript": "^1.4.19",
+    "gatsby-source-filesystem": "^1.5.27"
+  },
+  "devDependencies": {
+    "tslint": "^5.9.1"
+  }
+}
