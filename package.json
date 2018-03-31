@@ -10,13 +10,16 @@
     "build": "gatsby build"
   },
   "dependencies": {
+    "@opencv4nodejs/docs": "git+https://github.com/justadudewhohacks/just-some-scripts.git",
     "@types/node": "^9.6.1",
     "@types/react": "^16.1.0",
     "@types/react-dom": "^16.0.4",
     "gatsby": "^1.9.243",
     "gatsby-link": "^1.6.40",
+    "gatsby-plugin-styled-components": "^2.0.11",
     "gatsby-plugin-typescript": "^1.4.19",
-    "gatsby-source-filesystem": "^1.5.27"
+    "gatsby-source-filesystem": "^1.5.27",
+    "styled-components": "^3.2.5"
   },
   "devDependencies": {
     "tslint": "^5.9.1"

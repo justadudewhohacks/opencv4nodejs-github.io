@@ -1,9 +1,7 @@
 import * as React from 'react';
 
-type Function = {
-  fnName: string,
-  signatures: string[]
-}
+import Main from '../components/docsPage/Main'
+import { Function } from '@opencv4nodejs/docs/entities';
 
 type Props = {
   pathContext: {
@@ -14,12 +12,10 @@ type Props = {
 
 export default class extends React.Component<Props, {}> {
   public render() {
-
+    const { className, functions } = this.props.pathContext
+    const mainProps = { className, functions, ...{ classes: [] } }
     return(
-      <div>
-        <h1> { this.props.pathContext.className } </h1>
-        { this.props.pathContext.functions.map(fn => <h3> { fn.fnName } </h3>) }
-      </div>
+      <Main { ...mainProps } />
     )
   }
 }
