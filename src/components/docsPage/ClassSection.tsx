@@ -1,13 +1,36 @@
+import { IClass } from '@opencv4nodejs/docs/entities';
 import * as React from 'react';
 
+import { ConstructorsSection } from './ConstructorsSection';
+import { Json } from './Json';
+import { Type } from './Type';
+
 type Props = {
-  cvClassWithFns: any
+  clazz: IClass
 }
 
-export class ClassSection extends React.Component<Props> {
-  render() {
-    return (
-      <h1> TODO: ClassSection </h1>
-    )
-  }
+export const ClassSection = ({ clazz }: Props) => {
+  const { className, fields, constructors } = clazz
+  return (
+    <div>
+      {
+        fields.length ?
+          [
+            <h3> { 'fields' } </h3>,
+            <Json
+              fields={fields}
+              typeComponent={<Type type={className} />}
+            />
+          ]
+          : null
+      }
+      {
+        constructors.length ?
+          <ConstructorsSection
+            constructors={constructors}
+          />
+          : null
+      }
+    </div>
+  )
 }

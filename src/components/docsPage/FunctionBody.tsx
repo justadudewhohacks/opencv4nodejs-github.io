@@ -6,7 +6,7 @@ import { Comma } from './Comma';
 import { Declaration } from './Declaration';
 import { joinComponents } from '../joinComponents';
 
-type IFunctionBodySignature = {
+export type IFunctionBodySignature = {
   requiredArgs: IArgument[]
   optionalArgs: IOptionalArgument[]
 }

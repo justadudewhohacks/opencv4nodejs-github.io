@@ -12,13 +12,17 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
     classFolders.map((className) => {
       const classDocsPath = path.resolve(docsPath, className)
       const functions = fs.readdirSync(classDocsPath)
+        .filter(file => file !== '_class.json')
         .map(functionJson => require(path.resolve(classDocsPath, functionJson)))
+
+      const classJson = path.resolve(classDocsPath, '_class.json')
+      const clazz = fs.existsSync(classJson) ? require(classJson) : null
 
       return createPage({
         path: `/docs/${className}`,
         component: template,
         context: {
-          className,
+          clazz,
           functions
         }
       })
