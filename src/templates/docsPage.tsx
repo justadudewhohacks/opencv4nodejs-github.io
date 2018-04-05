@@ -2,10 +2,9 @@ import { IClass, IFunction } from '@opencv4nodejs/docs/entities';
 import * as React from 'react';
 import styled from 'styled-components';
 
-import ApiTree from '../components/ApiTree';
-import Main from '../components/DocsPage/Main';
+import { ApiTreeMenu } from '../components/ApiTreeMenu';
+import { ClassDocs } from '../components/ClassDocs';
 import { CvModuleTree } from '../types';
-import { SearchField } from '../components/SearchFields';
 
 const PageWrapper = styled.div`
   font-family: 'Open Sans', sans-serif;
@@ -71,27 +70,6 @@ const ContentHeader = styled.div`
   align-items: center;
 `
 
-type MenuProps = {
-  translateX: number
-}
-
-const Menu = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-width: 260px;
-  max-width: 260px;
-  overflow-x: hidden;
-  background: #fafafa;
-  z-index: 1;
-  transition: transform 100ms ease-out;
-  transform: translate(${(props: MenuProps) => props.translateX}px);
-  @media (max-width: 780px) {
-    position: absolute;
-    left: 0;
-  }
-`
-
 type Props = {
   pathContext: {
     clazz?: IClass,
@@ -103,7 +81,6 @@ type Props = {
 type State = {
   isMenuVisible: boolean
   isMobileView: boolean
-  filter: string
 }
 
 const maxMobileWidth = 780
@@ -114,14 +91,11 @@ export default class extends React.Component<Props, State> {
     this.toggleMenu = this.toggleMenu.bind(this)
     this.onWindowResized = this.onWindowResized.bind(this)
     this.onApiTreeLinkClicked = this.onApiTreeLinkClicked.bind(this)
-    this.updateFilter = this.updateFilter.bind(this)
-    this.getFilteredTree = this.getFilteredTree.bind(this)
   }
 
   state = {
     isMenuVisible: true,
-    isMobileView: false,
-    filter: ''
+    isMobileView: false
   }
 
   componentDidMount() {
@@ -160,44 +134,13 @@ export default class extends React.Component<Props, State> {
     })
   }
 
-  updateFilter(filter: string) {
-    this.setState({ filter })
-  }
-
-  getFilteredTree(apiTree: CvModuleTree[]) : CvModuleTree[] {
-    const { filter } = this.state
-    if (!filter) {
-      return apiTree
-    }
-  
-    const nameIncludes = (name: string) => name.toLowerCase().includes(filter.toLowerCase())
-    const isNotEmpty = (arr: any[]) => !!arr.length
-  
-    return apiTree.map(
-      moduleTree => ({
-        ...moduleTree,
-        classTrees: moduleTree.classTrees
-          .map(classTree => ({
-            ...classTree,
-            fnNamesWithCategory: classTree.fnNamesWithCategory
-              .map(({ category, fnNames }) => ({
-                category,
-                fnNames: fnNames.filter(nameIncludes)
-              }))
-              .filter(({ fnNames }) => isNotEmpty(fnNames))
-          }))
-          .filter(classTree => nameIncludes(classTree.className)
-            || isNotEmpty(classTree.fnNamesWithCategory)
-          ),
-        cvFnNames: moduleTree.cvFnNames.filter(fnName => nameIncludes(fnName))
-      })
-    )
-  }
-
   public render() {
     const { clazz = null, functions, apiTree } = this.props.pathContext
-    const mainProps = { clazz, functions }
-    const apiTreeProps = { apiTree: this.getFilteredTree(apiTree) }
+    const classDocsProps = { clazz, functions }
+    const apiTreeMenuProps = {
+      apiTree,
+      menuTranslateX: (this.state.isMenuVisible || !this.state.isMobileView ? 0 : -260)
+    }
 
     return(
       <PageWrapper>
@@ -211,22 +154,14 @@ export default class extends React.Component<Props, State> {
             </MenuIcon>
           </Navbar>
           <MainContainer>
-            <Menu translateX={this.state.isMenuVisible || !this.state.isMobileView ? 0 : -260}>
-              <SearchField
-                value={this.state.filter}
-                onInputChanged={this.updateFilter}
-              />
-              <ApiTree 
-                {...apiTreeProps}
-              />
-            </Menu>
+            <ApiTreeMenu {...apiTreeMenuProps}/>
             <Content>
               <div>
                 <ContentHeader>
                   <span> { clazz ? clazz.cvModule : 'cv' } </span>
                 </ContentHeader>
               </div>
-              <Main { ...mainProps } />
+              <ClassDocs { ...classDocsProps } />
             </Content>
           </MainContainer>
         </PageContainer>

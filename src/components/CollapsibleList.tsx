@@ -1,16 +1,8 @@
 import * as React from 'react';
-import styled, { InterpolationValue } from 'styled-components';
+import styled, { StyledComponentClass } from 'styled-components';
 
 const ToggleIcon = styled.i`
   padding: 4px;
-`
-
-type ListItemsProps = {
-  css: any
-}
-
-const ListItems = styled.ul`
-  ${(props: ListItemsProps) => props.css}
 `
 
 const HeaderText = styled.span`
@@ -19,20 +11,28 @@ const HeaderText = styled.span`
   flex: 1;
 `
 
+
 type ListHeaderProps = {
-  css: any
+  headerContainer: StyledComponentClass<any, any, any>
+  children: JSX.Element | JSX.Element[]
 }
 
-const ListHeader = styled.div`
-  display: flex;
-  align-items: center;
-  ${(props: ListHeaderProps) => props.css}
-`
+const ListHeader = ({ headerContainer, children } : ListHeaderProps) => {
+  const Container = headerContainer.extend`
+    display: flex;
+    align-items: center;
+  `
+
+  return (
+    <Container>
+      { children }
+    </Container>
+  )
+}
 
 type Props = {
   header: string
-  itemsCss: InterpolationValue[] 
-  headerCss: InterpolationValue[] 
+  headerContainer: StyledComponentClass<any, any, any>
   renderHeaderText: () => any
   onClickHeaderText?: () => any
   isCollapsible?: boolean
@@ -65,7 +65,7 @@ export class CollapsibleList extends React.Component<Props, State> {
     return (
       <li key={header}>
         <ListHeader
-          css={this.props.headerCss}
+          headerContainer={this.props.headerContainer}
         >
           <HeaderText
             onClick={this.props.onClickHeaderText || (() => {})}
@@ -85,10 +85,7 @@ export class CollapsibleList extends React.Component<Props, State> {
           }
         </ListHeader>
         {
-          this.state.collapsed ? null :
-          <ListItems css={this.props.itemsCss}>
-            { this.props.children }
-          </ListItems>
+          !this.state.collapsed && this.props.children
         }
       </li>
     )

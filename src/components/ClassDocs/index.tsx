@@ -21,7 +21,7 @@ type Props = {
   clazz: IClass | null
 }
 
-export default class extends React.Component<Props> {
+export class ClassDocs extends React.Component<Props> {
   render() {
     const { clazz, functions } = this.props
     const className = clazz ? clazz.className : 'cv'
