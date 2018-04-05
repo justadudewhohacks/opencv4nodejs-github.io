@@ -1,11 +1,12 @@
+import { IConstructor } from '@opencv4nodejs/docs/entities';
 import * as React from 'react';
 
 import { Code } from './Code';
 import { CodeLine } from './CodeLine';
-import { FunctionBody, IFunctionBodySignature } from './FunctionBody';
+import { FunctionBody } from './FunctionBody';
 
 type Props = {
-  constructors: (IFunctionBodySignature & { returnsOther: string })[]
+  constructors: IConstructor[]
 }
 
 export const ConstructorsSection = ({ constructors } : Props) => (

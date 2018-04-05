@@ -1,5 +1,4 @@
 import { IClass, IFunction } from '@opencv4nodejs/docs/entities';
-import Link from 'gatsby-link';
 import * as React from 'react';
 import styled from 'styled-components';
 
@@ -28,7 +27,7 @@ export default class extends React.Component<Props> {
     const className = clazz ? clazz.className : 'cv'
     return (
       <Container>
-        <Link to={className} />
+        <a id={`${className}`} />
         <h2> { `${className}` } </h2>
         {
           clazz &&

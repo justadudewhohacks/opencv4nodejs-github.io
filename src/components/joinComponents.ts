@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export function joinComponents(
   components: React.ReactElement<{}>[],
-  renderJoiningComponent: () => React.ReactElement<{}>,
+  renderJoiningComponent: (idx: number) => React.ReactElement<{}>,
 ): React.ReactElement<{}>[] {
   return components.reduce(
     function (
@@ -12,7 +12,7 @@ export function joinComponents(
     ) {
       return all.concat(
         i < (components.length - 1)
-          ? [component, renderJoiningComponent()]
+          ? [component, renderJoiningComponent(i)]
           : component
       )
     },
