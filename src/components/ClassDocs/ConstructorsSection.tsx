@@ -13,8 +13,8 @@ export const ConstructorsSection = ({ constructors } : Props) => (
   <div>
     <h3> { 'constructors' } </h3>
     {
-      constructors.map(c => (
-        <Code>
+      constructors.map((c, i) => (
+        <Code key={i}>
           <CodeLine>
             <FunctionBody
               signature={c}

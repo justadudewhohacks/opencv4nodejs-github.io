@@ -28,7 +28,12 @@ export class FunctionsSection extends React.Component<Props> {
                     const { fnName, hasAsync } = fn
                     return { fnName, hasAsync, signature }
                   })
-                  .map(props => <FunctionSignature { ...props } />)
+                  .map((props, i) =>
+                    <FunctionSignature
+                      key={i}
+                      { ...props }
+                    />
+                )
               }
             </div>
           ))

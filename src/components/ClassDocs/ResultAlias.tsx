@@ -13,16 +13,16 @@ type Props = {
 
 export const ResultAlias = ({ returnValues } : Props) =>
   !!returnValues.length && (
-        returnValues.length > 1
-          ?
-            <Json
-              fields={returnValues}
-              typeComponent={<Result />}
-            />
-          :
-            <CodeLine>
-              <Result />
-              <Colon />
-              <Type {...returnValues[0]} />
-            </CodeLine>
+    returnValues.length > 1
+      ?
+        <Json
+          fields={returnValues}
+          typeComponent={<Result />}
+        />
+      :
+        <CodeLine>
+          <Result />
+          <Colon />
+          <Type {...returnValues[0]} />
+        </CodeLine>
   )

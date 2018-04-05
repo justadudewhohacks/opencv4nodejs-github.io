@@ -28,10 +28,14 @@ const Container = styled.ul`
 
 type Props = {
   apiTree: CvModuleTree[]
+  onLinkClicked: () => void
+  onApiTreeRef: (el: any) => void
 }
 
-export const ApiTree = ({ apiTree }: Props) => (
-  <Container>
+export const ApiTree = ({ apiTree, onLinkClicked, onApiTreeRef }: Props) => (
+  <Container
+    innerRef={onApiTreeRef}
+  >
     {
       apiTree.map(({ cvModule, classTrees, cvFnNames }) => (
         <CollapsibleList
@@ -48,13 +52,15 @@ export const ApiTree = ({ apiTree }: Props) => (
                     <ClassList
                       className={clazz.className}
                       isCollapsible={clazz.fnNamesWithCategory.reduce((numFns, { fnNames }) => numFns + fnNames.length, 0) > 5}
+                      onLinkClicked={onLinkClicked}
                     >
                       {
                         clazz.fnNamesWithCategory
                           .map(({ category, fnNames }) => ({
                             category: (category === 'default' ? 'functions' : category),
                             className: clazz.className,
-                            fnNames
+                            fnNames,
+                            onLinkClicked
                           }))
                           .map(props =>
                             <FunctionList
@@ -76,11 +82,13 @@ export const ApiTree = ({ apiTree }: Props) => (
                   key="cv"
                   className="cv"
                   isCollapsible={cvFnNames.length > 5}
+                  onLinkClicked={onLinkClicked}
                 >
                   <FunctionList
                     className="cv"
                     category="functions"
                     fnNames={cvFnNames}
+                    onLinkClicked={onLinkClicked}
                   />
                 </ClassList>
             }

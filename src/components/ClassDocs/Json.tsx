@@ -25,7 +25,7 @@ export const Json = ({ fields, typeComponent } : Props) => (
     {
       fields
         .map((field, i) => (
-          <CodeLine>
+          <CodeLine key={field.name}>
             <Indent />
             <Declaration declaration={field} />
             {

@@ -14,9 +14,10 @@ type Props = {
   category: string
   className: string
   fnNames: string[]
+  onLinkClicked: () => void
 }
 
-export const FunctionList = ({ category, className, fnNames }: Props) => (
+export const FunctionList = ({ category, className, fnNames, onLinkClicked }: Props) => (
   <IndentedList>
     <ListItem
       dense
@@ -34,7 +35,10 @@ export const FunctionList = ({ category, className, fnNames }: Props) => (
             key={fnName}
             dense
             component={() =>
-              <StyledLink to={`/docs/${className}#${fnName}`}>
+              <StyledLink
+                to={`/docs/${className}#${fnName}`}
+                onClick={onLinkClicked}
+              >
                 { fnName }
               </StyledLink>
             }

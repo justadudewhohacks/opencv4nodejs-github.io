@@ -14,15 +14,14 @@ export const ClassSection = ({ clazz }: Props) => {
   return (
     <div>
       {
-        fields.length ?
-          [
-            <h3> { 'fields' } </h3>,
+        !!fields.length &&
+          <span>
+            <h3> { 'fields' } </h3>
             <Json
               fields={fields}
               typeComponent={<Type type={className} />}
             />
-          ]
-          : null
+          </span>
       }
       {
         constructors.length ?

@@ -56,6 +56,7 @@ export const FunctionBody = ({ signature, fnName, callbackResultComponent = null
         signature.requiredArgs
           .concat(signature.optionalArgs)
           .map(arg => <Declaration declaration={arg} key={arg.name} />)
+          // TODO fix keys
           .concat(getAppendedComponents(signature, callbackResultComponent)),
         key => <Comma key={key} />
       )

@@ -68,14 +68,32 @@ export class ApiTreeMenu extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.updateFilter = this.updateFilter.bind(this)
+    this.beforePageTransition = this.beforePageTransition.bind(this)
   }
 
   state = {
     filter: ''
   }
 
+  apiTreeRef: any = null
+
   updateFilter(filter: string) {
     this.setState({ filter })
+  }
+
+  beforePageTransition() {
+    if (!this.apiTreeRef)
+      return
+
+    localStorage.setItem('apiTreeMenuScroll', this.apiTreeRef.scrollTop)
+  }
+
+  componentDidMount() {
+    if (!this.apiTreeRef)
+      return
+
+    const scrollTop = localStorage.getItem('apiTreeMenuScroll')
+    this.apiTreeRef.scrollTo(0, scrollTop)
   }
 
   render() {
@@ -85,7 +103,11 @@ export class ApiTreeMenu extends React.Component<Props, State> {
           value={this.state.filter}
           onInputChanged={this.updateFilter}
         />
-        <ApiTree apiTree={getFilteredTree(this.props.apiTree, this.state.filter)} />
+        <ApiTree
+          apiTree={getFilteredTree(this.props.apiTree, this.state.filter)}
+          onLinkClicked={this.beforePageTransition}
+          onApiTreeRef={(ref) => { this.apiTreeRef = ref }}
+        />
       </Menu>
     )
   }

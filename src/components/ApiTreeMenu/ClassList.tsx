@@ -16,15 +16,19 @@ const headerContainer = styled.div`
 type Props = {
   className: string
   isCollapsible: boolean
+  onLinkClicked: () => void
   children?: JSX.Element | JSX.Element[]
 }
 
-export const ClassList = ({ className, isCollapsible, children }: Props) => (
+export const ClassList = ({ className, isCollapsible, onLinkClicked, children }: Props) => (
   <CollapsibleList
     headerContainer={headerContainer}
     renderHeaderComponent={() =>
       <ClassHeader>
-        <StyledLink to={`/docs/${className}#${className}`}>
+        <StyledLink
+          onClick={onLinkClicked}
+          to={`/docs/${className}#${className}`}
+        >
           { className }
         </StyledLink>
       </ClassHeader>
