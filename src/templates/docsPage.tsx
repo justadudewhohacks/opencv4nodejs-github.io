@@ -1,10 +1,13 @@
 import { IClass, IFunction } from '@opencv4nodejs/docs/entities';
+import { MuiThemeProvider } from 'material-ui/styles';
 import * as React from 'react';
 import styled from 'styled-components';
 
 import { ApiTreeMenu } from '../components/ApiTreeMenu';
 import { ClassDocs } from '../components/ClassDocs';
 import { CvModuleTree } from '../types';
+
+const getPageContext = require('./getPageContext')
 
 const PageWrapper = styled.div`
   font-family: 'Open Sans', sans-serif;
@@ -91,7 +94,11 @@ export default class extends React.Component<Props, State> {
     this.toggleMenu = this.toggleMenu.bind(this)
     this.onWindowResized = this.onWindowResized.bind(this)
     this.onApiTreeLinkClicked = this.onApiTreeLinkClicked.bind(this)
+
+    this.pageContext = getPageContext();
   }
+
+  pageContext: any = {}
 
   state = {
     isMenuVisible: true,
@@ -143,29 +150,34 @@ export default class extends React.Component<Props, State> {
     }
 
     return(
-      <PageWrapper>
-        <PageContainer>
-          <Navbar>
-            <MenuIcon
-              className="material-icons"
-              onClick={this.toggleMenu}
-            >
-              { 'menu' }
-            </MenuIcon>
-          </Navbar>
-          <MainContainer>
-            <ApiTreeMenu {...apiTreeMenuProps}/>
-            <Content>
-              <div>
-                <ContentHeader>
-                  <span> { clazz ? clazz.cvModule : 'cv' } </span>
-                </ContentHeader>
-              </div>
-              <ClassDocs { ...classDocsProps } />
-            </Content>
-          </MainContainer>
-        </PageContainer>
-      </PageWrapper>
+      <MuiThemeProvider
+        theme={this.pageContext.theme}
+        sheetsManager={this.pageContext.sheetsManager}
+      >
+        <PageWrapper>
+          <PageContainer>
+            <Navbar>
+              <MenuIcon
+                className="material-icons"
+                onClick={this.toggleMenu}
+              >
+                { 'menu' }
+              </MenuIcon>
+            </Navbar>
+            <MainContainer>
+              <ApiTreeMenu {...apiTreeMenuProps}/>
+              <Content>
+                <div>
+                  <ContentHeader>
+                    <span> { clazz ? clazz.cvModule : 'cv' } </span>
+                  </ContentHeader>
+                </div>
+                <ClassDocs { ...classDocsProps } />
+              </Content>
+            </MainContainer>
+          </PageContainer>
+        </PageWrapper>
+      </MuiThemeProvider>
     )
   }
 }

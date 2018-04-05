@@ -1,28 +1,25 @@
+import { ListItem } from 'material-ui/List';
 import * as React from 'react';
 import styled, { StyledComponentClass } from 'styled-components';
+
+import { IndentedList } from './ApiTreeMenu/IndentedList';
 
 const ToggleIcon = styled.i`
   padding: 4px;
 `
 
-const HeaderText = styled.span`
+const ListHeaderBase = styled.div`
   display: flex;
   align-items: center;
-  flex: 1;
 `
-
 
 type ListHeaderProps = {
   headerContainer: StyledComponentClass<any, any, any>
-  children: JSX.Element | JSX.Element[]
+  children: any
 }
 
 const ListHeader = ({ headerContainer, children } : ListHeaderProps) => {
-  const Container = headerContainer.extend`
-    display: flex;
-    align-items: center;
-  `
-
+  const Container = ListHeaderBase.withComponent(headerContainer)
   return (
     <Container>
       { children }
@@ -31,10 +28,8 @@ const ListHeader = ({ headerContainer, children } : ListHeaderProps) => {
 }
 
 type Props = {
-  header: string
   headerContainer: StyledComponentClass<any, any, any>
-  renderHeaderText: () => any
-  onClickHeaderText?: () => any
+  renderHeaderComponent: () => JSX.Element | string
   isCollapsible?: boolean
 }
 
@@ -60,34 +55,32 @@ export class CollapsibleList extends React.Component<Props, State> {
     this.setState({ collapsed: !this.state.collapsed })
   }
 
-  render() : any {
-    const { header, renderHeaderText } = this.props
+  render() {
+    const { renderHeaderComponent, headerContainer } = this.props
     return (
-      <li key={header}>
-        <ListHeader
-          headerContainer={this.props.headerContainer}
-        >
-          <HeaderText
-            onClick={this.props.onClickHeaderText || (() => {})}
-          >
-            { renderHeaderText() }
-          </HeaderText>
-          {
-            this.props.isCollapsible
-            ? (
-              <ToggleIcon
-                onClick={this.toggle}
-              >
-                {this.state.collapsed ? '+' : '-'}
-              </ToggleIcon>
-            )
-            : null
+      <IndentedList>
+        <ListItem
+          component={() =>
+            <ListHeader headerContainer={headerContainer}>
+              { renderHeaderComponent() }
+              {
+                this.props.isCollapsible
+                ? (
+                  <ToggleIcon
+                    onClick={this.toggle}
+                  >
+                    {this.state.collapsed ? '+' : '-'}
+                  </ToggleIcon>
+                )
+                : null
+              }
+            </ListHeader>
           }
-        </ListHeader>
+        />
         {
           !this.state.collapsed && this.props.children
         }
-      </li>
+      </IndentedList>
     )
   }
 }

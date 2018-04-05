@@ -1,10 +1,11 @@
-import Link from 'gatsby-link';
+import { ListItem } from 'material-ui/List';
 import * as React from 'react';
+import styled from 'styled-components';
 
-import { ListItem } from './ListItem';
+import { IndentedList } from './IndentedList';
+import { StyledLink } from './StyledLink';
 
-const CategoryHeader = ListItem.extend`
-  margin-top: 5px;
+const CategoryHeader = styled.div`
   font-weight: bold;
   cursor: default;
 `
@@ -16,19 +17,29 @@ type Props = {
 }
 
 export const FunctionList = ({ category, className, fnNames }: Props) => (
-  <div>
-    <CategoryHeader>
-      { category === 'default' ? 'functions' : category }
-    </CategoryHeader>
+  <IndentedList>
+    <ListItem
+      dense
+      key={'header'}
+      component={() =>
+        <CategoryHeader>
+          { category === 'default' ? 'functions' : category }
+        </CategoryHeader>
+      }
+    />
     {
       fnNames
         .map(fnName =>
-          <ListItem>
-            <Link to={`/docs/${className}#${fnName}`}>
-              { fnName }
-            </Link>
-          </ListItem>
+          <ListItem
+            key={fnName}
+            dense
+            component={() =>
+              <StyledLink to={`/docs/${className}#${fnName}`}>
+                { fnName }
+              </StyledLink>
+            }
+          />
         )
     }
-  </div>
+  </IndentedList>
 )

@@ -1,19 +1,14 @@
-import Link from 'gatsby-link';
 import * as React from 'react';
 import styled from 'styled-components';
 
 import { CollapsibleList } from '../CollapsibleList';
-import { ListItem } from './ListItem';
+import { StyledLink } from './StyledLink';
 
 const ClassHeader = styled.div`
   flex: 1;
 `
 
-const ClassItemsList = ListItem.extend`
-  padding: 0 8px;
-`
-
-const HeaderContainer = ListItem.extend`
+const headerContainer = styled.div`
   font-size: 18px;
   font-weight: bold;
 `
@@ -26,20 +21,16 @@ type Props = {
 
 export const ClassList = ({ className, isCollapsible, children }: Props) => (
   <CollapsibleList
-    header=""
-    renderHeaderText={
-      () =>
-        <ClassHeader>
-          <Link to={`/docs/${className}#${className}`}>
-            { className }
-          </Link>
-        </ClassHeader>
+    headerContainer={headerContainer}
+    renderHeaderComponent={() =>
+      <ClassHeader>
+        <StyledLink to={`/docs/${className}#${className}`}>
+          { className }
+        </StyledLink>
+      </ClassHeader>
     }
-    headerContainer={HeaderContainer}
     isCollapsible={isCollapsible}
   >
-    <ClassItemsList>
-      { children }
-    </ClassItemsList>
+    { children }
   </CollapsibleList>
 )

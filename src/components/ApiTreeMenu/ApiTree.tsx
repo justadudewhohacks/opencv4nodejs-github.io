@@ -1,3 +1,4 @@
+import { ListItem } from 'material-ui/List';
 import * as React from 'react';
 import styled from 'styled-components';
 
@@ -5,9 +6,9 @@ import { CvModuleTree } from '../../types';
 import { CollapsibleList } from '../CollapsibleList';
 import { ClassList } from './ClassList';
 import { FunctionList } from './FunctionList';
-import { ListItem } from './ListItem';
+import { IndentedList } from './IndentedList';
 
-const ModuleHeaderContainer = ListItem.extend`
+const headerContainer = styled.div`
   padding: 4px;
   font-size: 18px;
   background: #424242;
@@ -34,44 +35,56 @@ export const ApiTree = ({ apiTree }: Props) => (
     {
       apiTree.map(({ cvModule, classTrees, cvFnNames }) => (
         <CollapsibleList
-          header=""
           key={cvModule}
-          renderHeaderText={() => cvModule}
-          headerContainer={ModuleHeaderContainer}
+          headerContainer={headerContainer}
+          renderHeaderComponent={() => cvModule}
         >
-          {
-            classTrees.map(clazz =>
-              <ClassList
-                key={clazz.className}
-                className={clazz.className}
-                isCollapsible={clazz.fnNamesWithCategory.reduce((numFns, { fnNames }) => numFns + fnNames.length, 0) > 5}
-              >
-                {
-                  clazz.fnNamesWithCategory
-                    .map(({ category, fnNames }) => ({
-                      category: (category === 'default' ? 'functions' : category),
-                      className: clazz.className,
-                      fnNames
-                    }))
-                    .map(props => <FunctionList {...props} />)
-                }
-              </ClassList>
-            )
-          }
-          {
-            !!cvFnNames.length &&
-              <ClassList
-                key="cv"
-                className="cv"
-                isCollapsible={cvFnNames.length > 5}
-              >
-                <FunctionList
-                  className="cv"
-                  category="functions"
-                  fnNames={cvFnNames}
+          <IndentedList>
+            {
+              classTrees.map(clazz =>
+                <ListItem
+                  key={clazz.className}
+                  component={() =>
+                    <ClassList
+                      className={clazz.className}
+                      isCollapsible={clazz.fnNamesWithCategory.reduce((numFns, { fnNames }) => numFns + fnNames.length, 0) > 5}
+                    >
+                      {
+                        clazz.fnNamesWithCategory
+                          .map(({ category, fnNames }) => ({
+                            category: (category === 'default' ? 'functions' : category),
+                            className: clazz.className,
+                            fnNames
+                          }))
+                          .map(props =>
+                            <FunctionList
+                              key={props.category}
+                              {...props}
+                            />
+                          )
+                      }
+                    </ClassList>
+                  }
                 />
-              </ClassList>
-          }
+              )
+            }
+          </IndentedList>
+          <IndentedList>
+            {
+              !!cvFnNames.length &&
+                <ClassList
+                  key="cv"
+                  className="cv"
+                  isCollapsible={cvFnNames.length > 5}
+                >
+                  <FunctionList
+                    className="cv"
+                    category="functions"
+                    fnNames={cvFnNames}
+                  />
+                </ClassList>
+            }
+          </IndentedList>
         </CollapsibleList>
       ))
     }
