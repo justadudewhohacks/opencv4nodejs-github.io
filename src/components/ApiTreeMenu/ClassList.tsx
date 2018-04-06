@@ -4,10 +4,6 @@ import styled from 'styled-components';
 import { CollapsibleList } from '../CollapsibleList';
 import { StyledLink } from './StyledLink';
 
-const ClassHeader = styled.div`
-  flex: 1;
-`
-
 const headerContainer = styled.div`
   font-size: 18px;
   font-weight: bold;
@@ -24,14 +20,12 @@ export const ClassList = ({ className, isCollapsible, onLinkClicked, children }:
   <CollapsibleList
     headerContainer={headerContainer}
     renderHeaderComponent={() =>
-      <ClassHeader>
-        <StyledLink
-          onClick={onLinkClicked}
-          to={`/docs/${className}#${className}`}
-        >
-          { className }
-        </StyledLink>
-      </ClassHeader>
+      <StyledLink
+        onClick={onLinkClicked}
+        to={`/docs/${className}#${className}`}
+      >
+        { className }
+      </StyledLink>
     }
     isCollapsible={isCollapsible}
   >

@@ -22,6 +22,7 @@
     "gatsby-plugin-typescript": "^1.4.19",
     "gatsby-source-filesystem": "^1.5.27",
     "material-ui": "^1.0.0-beta.40",
+    "material-ui-icons": "^1.0.0-beta.36",
     "styled-components": "^3.2.5"
   },
   "devDependencies": {

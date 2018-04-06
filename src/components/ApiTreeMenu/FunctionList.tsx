@@ -33,7 +33,6 @@ export const FunctionList = ({ category, className, fnNames, onLinkClicked }: Pr
         .map(fnName =>
           <ListItem
             key={fnName}
-            dense
             component={() =>
               <StyledLink
                 to={`/docs/${className}#${fnName}`}

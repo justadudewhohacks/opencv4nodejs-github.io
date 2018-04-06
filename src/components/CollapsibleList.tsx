@@ -1,16 +1,32 @@
+import { ArrowDropDown, ArrowDropUp } from 'material-ui-icons';
 import { ListItem } from 'material-ui/List';
 import * as React from 'react';
-import styled, { StyledComponentClass } from 'styled-components';
+import styled, { css, StyledComponentClass } from 'styled-components';
 
 import { IndentedList } from './ApiTreeMenu/IndentedList';
-
-const ToggleIcon = styled.i`
-  padding: 4px;
-`
 
 const ListHeaderBase = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  >:first-child {
+    flex: 1
+  }
+`
+
+const overrideIconCss = css`
+  && {
+    padding: 4px;
+    cursor: pointer;
+  }
+`
+
+const StyledArrowDropDownIcon = styled(ArrowDropDown)`
+  ${overrideIconCss}
+`
+
+const StyledArrowDropUpIcon = styled(ArrowDropUp)`
+  ${overrideIconCss}
 `
 
 type ListHeaderProps = {
@@ -29,7 +45,7 @@ const ListHeader = ({ headerContainer, children } : ListHeaderProps) => {
 
 type Props = {
   headerContainer: StyledComponentClass<any, any, any>
-  renderHeaderComponent: () => JSX.Element | string
+  renderHeaderComponent: () => JSX.Element
   isCollapsible?: boolean
 }
 
@@ -64,15 +80,11 @@ export class CollapsibleList extends React.Component<Props, State> {
             <ListHeader headerContainer={headerContainer}>
               { renderHeaderComponent() }
               {
-                this.props.isCollapsible
-                ? (
-                  <ToggleIcon
-                    onClick={this.toggle}
-                  >
-                    {this.state.collapsed ? '+' : '-'}
-                  </ToggleIcon>
+                this.props.isCollapsible && (
+                  this.state.collapsed
+                    ? <StyledArrowDropDownIcon onClick={this.toggle}/>
+                    : <StyledArrowDropUpIcon onClick={this.toggle}/>
                 )
-                : null
               }
             </ListHeader>
           }

@@ -2,6 +2,7 @@ import { IClass, IFunction } from '@opencv4nodejs/docs/entities';
 import { MuiThemeProvider } from 'material-ui/styles';
 import * as React from 'react';
 import styled from 'styled-components';
+import { Menu } from 'material-ui-icons';
 
 import { ApiTreeMenu } from '../components/ApiTreeMenu';
 import { ClassDocs } from '../components/ClassDocs';
@@ -52,14 +53,16 @@ const Content = styled.div`
   flex: 1;
 `
 
-const MenuIcon = styled.i`
-  font-size: 32px;
-  padding: 4px;
-  margin-right: 4px;
-  cursor: pointer;
-  display: none;
-  @media (max-width: 780px) {
-    display: inherit;
+const StyledMenuIcon = styled(Menu)`
+  && {
+    font-size: 32px;
+    padding: 4px;
+    margin-right: 4px;
+    cursor: pointer;
+    display: none;
+    @media (max-width: 780px) {
+      display: inherit;
+    }
   }
 `
 
@@ -157,12 +160,7 @@ export default class extends React.Component<Props, State> {
         <PageWrapper>
           <PageContainer>
             <Navbar>
-              <MenuIcon
-                className="material-icons"
-                onClick={this.toggleMenu}
-              >
-                { 'menu' }
-              </MenuIcon>
+              <StyledMenuIcon onClick={this.toggleMenu} />
             </Navbar>
             <MainContainer>
               <ApiTreeMenu {...apiTreeMenuProps}/>

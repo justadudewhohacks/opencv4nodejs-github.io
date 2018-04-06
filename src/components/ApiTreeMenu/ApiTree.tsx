@@ -41,7 +41,7 @@ export const ApiTree = ({ apiTree, onLinkClicked, onApiTreeRef }: Props) => (
         <CollapsibleList
           key={cvModule}
           headerContainer={headerContainer}
-          renderHeaderComponent={() => cvModule}
+          renderHeaderComponent={() => <span> { cvModule } </span>}
         >
           <IndentedList>
             {
