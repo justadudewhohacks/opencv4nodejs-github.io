@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Link from 'gatsby-link';
 
 interface IndexPageProps {
   data: {
@@ -18,8 +19,8 @@ export default class extends React.Component<IndexPageProps, {}> {
   public render() {
     return(
       <div>
-        <h1>Hello Typescript world!</h1>
-        <p>This site is named <strong>{this.props.data.site.siteMetadata.siteName}</strong></p>
+        <p>Welcome to <strong>{this.props.data.site.siteMetadata.siteName}</strong></p>
+        <Link to='/opencv4nodejs/docs/Mat'> docs </Link>
       </div>
     )
   }

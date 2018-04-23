@@ -97,20 +97,15 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
 
   const { createPage, createRedirect } = boundActionCreators
 
-  createRedirect({
-    fromPath: '/',
-    isPermanent: true,
-    redirectInBrowser: true,
-    toPath: '/docs'
-  })
-
-  createRedirect({
-    fromPath: '/docs',
-    isPermanent: true,
-    redirectInBrowser: true,
-    toPath: '/docs/Mat'
-  })
-
+  const redirectPaths = ['/', '/docs']
+  redirectPaths.forEach(
+    fromPath => createRedirect({
+      fromPath,
+      isPermanent: true,
+      redirectInBrowser: true,
+      toPath: '/docs/Mat'
+    })
+  )
 
   const template = path.resolve(__dirname, 'src/templates/docsPage.tsx')
   const docsPath = path.resolve(__dirname, 'static/docs')
