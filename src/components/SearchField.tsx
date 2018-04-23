@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { Search } from 'material-ui-icons';
+import { Icon } from 'material-ui';
 
 type Props = {
   value: string,
@@ -19,7 +19,7 @@ const Container = styled.div`
   }
 `
 
-const StyledSearchIcon = styled(Search)`
+const StyledIcon = styled(Icon)`
   && {
     padding: 4px;
   }
@@ -32,7 +32,9 @@ export const SearchField = ({ value, onInputChanged } : Props) => (
         value={value}
         onChange={e => onInputChanged(e.target.value)}
       />
-      <StyledSearchIcon />
+      <StyledIcon>
+        search
+      </StyledIcon>
     </Container>
   </div>
 )

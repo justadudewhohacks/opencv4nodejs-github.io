@@ -1,9 +1,9 @@
-import { ArrowDropDown, ArrowDropUp } from 'material-ui-icons';
 import { ListItem } from 'material-ui/List';
 import * as React from 'react';
 import styled, { css, StyledComponentClass } from 'styled-components';
 
 import { IndentedList } from './ApiTreeMenu/IndentedList';
+import { Icon } from 'material-ui';
 
 const ListHeaderBase = styled.div`
   display: flex;
@@ -21,11 +21,7 @@ const overrideIconCss = css`
   }
 `
 
-const StyledArrowDropDownIcon = styled(ArrowDropDown)`
-  ${overrideIconCss}
-`
-
-const StyledArrowDropUpIcon = styled(ArrowDropUp)`
+const StyledIcon = styled(Icon)`
   ${overrideIconCss}
 `
 
@@ -82,8 +78,8 @@ export class CollapsibleList extends React.Component<Props, State> {
               {
                 this.props.isCollapsible && (
                   this.state.collapsed
-                    ? <StyledArrowDropDownIcon onClick={this.toggle}/>
-                    : <StyledArrowDropUpIcon onClick={this.toggle}/>
+                    ? <StyledIcon onClick={this.toggle}> arrow_drop_up </StyledIcon>
+                    : <StyledIcon onClick={this.toggle}> arrow_drop_down </StyledIcon>
                 )
               }
             </ListHeader>

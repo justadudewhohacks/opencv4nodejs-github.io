@@ -36,6 +36,7 @@ module.exports = class extends React.Component<HtmlProps, void> {
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
           />
           <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
           {css}
           <style dangerouslySetInnerHTML={{
             __html: 'html { font-family: \'Open Sans\', sans-serif; }'
