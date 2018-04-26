@@ -1,31 +1,30 @@
 {
-  "cvModule": "io",
+  "cvModule": "utils",
   "owner": "cv",
-  "fnName": "imencode",
-  "hasAsync": true,
+  "fnName": "drawDetection",
+  "hasAsync": false,
   "signatures": [
     {
       "requiredArgs": [
         {
-          "type": "string",
-          "name": "fileExt"
-        },
-        {
           "type": "Mat",
           "name": "img"
+        },
+        {
+          "type": "Rect",
+          "name": "inputRect"
         }
       ],
       "optionalArgs": [
         {
-          "type": "int",
-          "name": "flags",
-          "arrayDepth": 1,
-          "defaultValue": "[]"
+          "type": "DrawDetectionParams",
+          "name": "opts",
+          "defaultValue": "{}"
         }
       ],
       "returnValues": [
         {
-          "type": "Buffer",
+          "type": "Rect",
           "name": "returnValue"
         }
       ]

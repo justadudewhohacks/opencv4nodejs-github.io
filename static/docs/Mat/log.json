@@ -1,15 +1,16 @@
 {
   "cvModule": "core",
   "owner": "Mat",
-  "fnName": "getData",
-  "hasAsync": true,
+  "fnName": "log",
+  "hasAsync": false,
+  "category": "operators",
   "signatures": [
     {
       "requiredArgs": [],
       "optionalArgs": [],
       "returnValues": [
         {
-          "type": "Buffer",
+          "type": "Mat",
           "name": "returnValue"
         }
       ]

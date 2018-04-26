@@ -16,7 +16,8 @@ const allModules = [
   'tracking',
   'video',
   'ximgproc',
-  'xfeatures2d'
+  'xfeatures2d',
+  'utils'
 ]
 
 const CLASS_FILE = '_class.json'

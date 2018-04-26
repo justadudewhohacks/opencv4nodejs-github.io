@@ -1,15 +1,15 @@
 {
-  "cvModule": "core",
-  "owner": "Mat",
-  "fnName": "getData",
-  "hasAsync": true,
+  "cvModule": "utils",
+  "owner": "cv",
+  "fnName": "dangerousDisableCustomMatAllocator",
+  "hasAsync": false,
   "signatures": [
     {
       "requiredArgs": [],
       "optionalArgs": [],
       "returnValues": [
         {
-          "type": "Buffer",
+          "type": "boolean",
           "name": "returnValue"
         }
       ]
